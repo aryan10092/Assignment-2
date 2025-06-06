@@ -8,6 +8,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { Header } from "./components/Header";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+
 import RegisterStep2 from "./pages/RegisterStep2";
 import Categories from "./pages/Categories";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -20,13 +21,18 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+
       <AuthProvider>
         <BrowserRouter>
+
           <div className="min-h-screen bg-background">
             <Header />
             <Routes>
+
               <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
+
+           <Route path="/register" element={<Register />} />
+
               <Route path="/register/step2" element={<RegisterStep2 />} />
               <Route path="/categories" element={
                 <ProtectedRoute>
@@ -36,6 +42,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
             </Routes>
           </div>
+
         </BrowserRouter>
       </AuthProvider>
     </TooltipProvider>

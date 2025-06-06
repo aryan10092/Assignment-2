@@ -30,7 +30,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for stored user session
+    
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -40,9 +40,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true);
-    // Mock authentication - in real app, this would call your backend
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+    try{
+            await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
       
       const mockUser = {
         id: '1',

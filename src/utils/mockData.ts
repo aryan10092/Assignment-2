@@ -9,7 +9,7 @@ export interface Category {
   color: string;
 }
 
-// Generate 100 mock categories
+
 export const generateMockCategories = (): Category[] => {
   const categories: Category[] = [];
   
