@@ -23,7 +23,7 @@ const Register = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
+     if (!formData.name || !formData.email || !formData.password ) {
       toast({
         title: "Error",
         description: "Please fill in all fields",
@@ -32,14 +32,14 @@ const Register = () => {
       return;
     }
 
-    if (formData.password !== formData.confirmPassword) {
-      toast({
-        title: "Error",
-        description: "Passwords do not match",
-        variant: "destructive"
-      });
-      return;
-    }
+    // if (formData.password !== formData.confirmPassword) {
+    //   toast({
+    //     title: "Error",
+    //     description: "Passwords do not match",
+    //     variant: "destructive"
+    //   });
+    //   return;
+    // }
 
     if (formData.password.length < 6) {
       toast({
@@ -50,16 +50,16 @@ const Register = () => {
       return;
     }
 
-    // Store form data and proceed to step 2
+    
     localStorage.setItem('registrationData', JSON.stringify(formData));
     navigate('/register/step2');
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 pb-40">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold">Create Account</CardTitle>
+          <CardTitle className="text-2xl font-bold">Create your account</CardTitle>
           <CardDescription>Step 1 of 2 - Personal Information</CardDescription>
         </CardHeader>
         <CardContent>
@@ -109,7 +109,7 @@ const Register = () => {
               </div>
             </div>
 
-            <div>
+            {/* <div>
               <Label htmlFor="confirmPassword">Confirm Password</Label>
               <div className="relative mt-1">
                 <Input
@@ -128,18 +128,18 @@ const Register = () => {
                   {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
-            </div>
+            </div> */}
 
             <Button type="submit" className="w-full">
-              Continue to Step 2
+              CREATE ACCOUNT
             </Button>
           </form>
 
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
-              Already have an account?{' '}
-              <Link to="/login" className="text-primary hover:underline font-medium">
-                Sign in
+               Have an account? {'  '}
+              <Link to="/login" className="text-primary hover:underline font-small">
+                LOGIN
               </Link>
             </p>
           </div>

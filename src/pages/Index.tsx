@@ -25,7 +25,7 @@ const Index = () => {
     );
   }
 
-  return null;
+  return null
 };
 
 export default Index;

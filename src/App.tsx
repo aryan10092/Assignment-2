@@ -11,6 +11,7 @@ import Register from "./pages/Register";
 import RegisterStep2 from "./pages/RegisterStep2";
 import Categories from "./pages/Categories";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Index from "./pages/Index";
 
 const queryClient = new QueryClient();
 
@@ -32,7 +33,7 @@ const App = () => (
                   <Categories />
                 </ProtectedRoute>
               } />
-              <Route path="/" element={<Login />} />
+              <Route path="/" element={<Index />} />
             </Routes>
           </div>
         </BrowserRouter>

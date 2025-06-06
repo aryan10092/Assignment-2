@@ -64,7 +64,7 @@ const RegisterStep2 = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 pb-40">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-bold">Almost Done!</CardTitle>
@@ -115,9 +115,9 @@ const RegisterStep2 = () => {
 
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
-              Already have an account?{' '}
-              <Link to="/login" className="text-primary hover:underline font-medium">
-                Sign in
+               Have an account?{' '}
+              <Link to="/login" className="text-primary hover:underline font-small">
+                LOGIN
               </Link>
             </p>
           </div>
