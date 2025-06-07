@@ -1,12 +1,12 @@
-
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useToast } from '@/hooks/use-toast';
+
 import { Eye, EyeOff } from 'lucide-react';
+import { toast } from 'sonner';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -18,38 +18,22 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
-  const { toast } = useToast();
+  
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-     if (!formData.name || !formData.email || !formData.password ) {
-      toast({
-        title: "Error",
-        description: "Please fill in all fields",
-        variant: "destructive"
-      });
+    if (!formData.name || !formData.email || !formData.password) {
+      toast.error("Please fill in all fields");
       return;
     }
-
-    // if (formData.password !== formData.confirmPassword) {
-    //   toast({
-    //     title: "Error",
-    //     description: "Passwords do not match",
-    //     variant: "destructive"
-    //   });
-    //   return;
-    // }
 
     if (formData.password.length < 6) {
-      toast({
-        title: "Error",
-        description: "Password must be at least 6 characters",
-        variant: "destructive"
-      });
+      toast.error("Password must be at least 6 characters");
       return;
     }
 
+   
     
     localStorage.setItem('registrationData', JSON.stringify(formData));
     navigate('/register/step2');

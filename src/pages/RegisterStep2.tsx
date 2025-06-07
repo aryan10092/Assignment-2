@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -6,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 
 const RegisterStep2 = () => {
   const [formData, setFormData] = useState({
@@ -17,7 +16,6 @@ const RegisterStep2 = () => {
   const [registrationData, setRegistrationData] = useState<any>(null);
   const { register, isLoading } = useAuth();
   const navigate = useNavigate();
-  const { toast } = useToast();
 
   useEffect(() => {
     const storedData = localStorage.getItem('registrationData');
@@ -32,11 +30,7 @@ const RegisterStep2 = () => {
     e.preventDefault();
     
     if (!formData.phone || !formData.company) {
-      toast({
-        title: "Error",
-        description: "Please fill in required fields",
-        variant: "destructive"
-      });
+      toast.error('Please fill in all required fields');
       return;
     }
 
@@ -45,17 +39,10 @@ const RegisterStep2 = () => {
     
     if (success) {
       localStorage.removeItem('registrationData');
-      toast({
-        title: "Success",
-        description: "Account created successfully!"
-      });
+      toast.success('Registration successful!');
       navigate('/categories');
     } else {
-      toast({
-        title: "Error",
-        description: "Failed to create account. Please try again.",
-        variant: "destructive"
-      });
+      toast.error('Registration failed. Please try again.');
     }
   };
 

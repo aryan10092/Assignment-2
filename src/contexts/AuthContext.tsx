@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface User {
@@ -40,13 +39,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true);
-    try{
-            await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1000)); 
       
+  
+      const existingUsers = localStorage.getItem('users');
+      const users = existingUsers ? JSON.parse(existingUsers) : [];
+      
+
+      const existingUser = users.find((u: any) => u.email === email && u.password === password);
+      
+      if (!existingUser) {
+        setIsLoading(false);
+        return false;
+      }
+      
+  
       const mockUser = {
-        id: '1',
-        email,
-        name: email.split('@')[0]
+        id: existingUser.id,
+        email: existingUser.email,
+        name: existingUser.name
       };
       
       setUser(mockUser);
@@ -62,16 +74,42 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const register = async (userData: any): Promise<boolean> => {
     setIsLoading(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000)); 
       
-      const mockUser = {
+    
+      const existingUsers = localStorage.getItem('users');
+      const users = existingUsers ? JSON.parse(existingUsers) : [];
+      
+ 
+      const userExists = users.some((u: any) => u.email === userData.email);
+      if (userExists) {
+        setIsLoading(false);
+        return false;
+      }
+      
+      
+      const newUser = {
         id: Math.random().toString(36).substr(2, 9),
         email: userData.email,
-        name: userData.name
+        name: userData.name,
+        password: userData.password 
       };
       
-      setUser(mockUser);
-      localStorage.setItem('user', JSON.stringify(mockUser));
+    
+      users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(users));
+      
+      setUser({
+        id: newUser.id,
+        email: newUser.email,
+        name: newUser.name
+      });
+      localStorage.setItem('user', JSON.stringify({
+        id: newUser.id,
+        email: newUser.email,
+        name: newUser.name
+      }));
+      
       setIsLoading(false);
       return true;
     } catch (error) {

@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -6,42 +5,37 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useToast } from '@/hooks/use-toast';
+
 import { Eye, EyeOff } from 'lucide-react';
+import { toast } from 'sonner';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const { login, isLoading } = useAuth();
+  const { login, isLoading, user } = useAuth();
   const navigate = useNavigate();
-  const { toast } = useToast();
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!email || !password) {
-      toast({
-        title: "Error",
-        description: "Please fill in all fields",
-        variant: "destructive"
-      });
+    if(!email || !password){
+      toast.error("Please fill in all fields");
       return;
     }
 
     const success = await login(email, password);
-    if (success) {
-      toast({
-        title: "Success",
-        description: "Login successful!"
-      });
+    if(success){
+      toast.success("Login successful!");
       navigate('/categories');
     } else {
-      toast({
-        title: "Error",
-        description: "Invalid email or password",
-        variant: "destructive"
-      });
+      if (user) {
+        toast.error("You are already logged in");
+        navigate('/categories');
+      } else {
+        toast.error("Invalid email or password");
+      }
     }
   };
 

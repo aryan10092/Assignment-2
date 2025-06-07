@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { mockCategories, Category } from '@/utils/mockData';
 import { Button } from '@/components/ui/button';
@@ -12,7 +11,7 @@ import {
   PaginationNext, 
   PaginationPrevious 
 } from '@/components/ui/pagination';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 6;
@@ -20,7 +19,6 @@ const ITEMS_PER_PAGE = 6;
 const Categories = () => {
   const [selectedCategories, setSelectedCategories] = useState<Set<string>>(new Set())
   const [currentPage, setCurrentPage] = useState(1);
-  const { toast } = useToast();
 
   const totalPages = Math.ceil(mockCategories.length / ITEMS_PER_PAGE)
 
@@ -48,10 +46,7 @@ const Categories = () => {
     localStorage.setItem('selectedCategories', 
       JSON.stringify(Array.from(newSelected)));
     
-    toast({
-      title: "Selection Updated",
-      description: `You have ${newSelected.size} categories selected`,
-    });
+    toast(`You have ${newSelected.size} categories selected`);
   };
 
   const handlePageChange = (page: number) => {
